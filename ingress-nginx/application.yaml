@@ -26,6 +26,14 @@ spec:
               enabled: false
           defaultBackend:
             enabled: true
+          admissionWebhooks:
+            enabled: false
+            patch:
+              enabled: false
+    - repoURL: https://github.com/lostady/k8s-infra
+      path: ingress-nginx
+      targetRevision: main
+      kustomize: {}  # Use kustomization.yaml (manage resources only)
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
