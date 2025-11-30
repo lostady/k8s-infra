@@ -11,4 +11,4 @@ server:
 
   # Ingress is disabled (can be enabled later with ingress.enabled=true)
   ingress:
-    enabled: true
+    enabled: false

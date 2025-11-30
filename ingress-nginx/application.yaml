@@ -24,12 +24,12 @@ spec:
               use-forwarded-headers: "true"
             metrics:
               enabled: false
+            admissionWebhooks:
+              enabled: false
+              patch:
+                enabled: false
           defaultBackend:
             enabled: true
-          admissionWebhooks:
-            enabled: false
-            patch:
-              enabled: false
     - repoURL: https://github.com/lostady/k8s-infra
       path: ingress-nginx
       targetRevision: main
