@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: infra-structure
+  # Use Argo CD 2.6+ Multiple Sources (Helm repository + Git resources)
+  sources:
+    - repoURL: https://kubernetes.github.io/ingress-nginx
+      chart: ingress-nginx
+      targetRevision: 4.14.0
+      helm:
+        values: |
+          controller:
+            kind: DaemonSet
+            hostNetwork: true
+            dnsPolicy: ClusterFirstWithHostNet
+            service:
+              enabled: false
+            config:
+              use-forwarded-headers: "true"
+            metrics:
+              enabled: false
+          defaultBackend:
+            enabled: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ingress-nginx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
