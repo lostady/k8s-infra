@@ -11,7 +11,7 @@ spec:
   # This manages Argo CD resources only (ingress, etc.)
   source:
     repoURL: https://github.com/lostady/k8s-infra
-    path: argo-cd/application.yaml
+    path: argo-cd
     targetRevision: main
     kustomize: {}  # Use kustomization.yaml (manage resources only)
   destination:
