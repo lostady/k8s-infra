@@ -14,7 +14,14 @@ spec:
       targetRevision: 2.17.9
       helm:
         values: |
-          # Use default values
+          # Sealed Secrets Controller 설정
+          createController: true
+          # 수동으로 생성한 private key 사용
+          secretName: "sealed-secrets-key"
+          updateStatus: true
+
+          # Key 갱신 비활성화 (로컬 개발 환경)
+          keyrenewperiod: "0"
     - repoURL: https://github.com/lostady/k8s-infra
       path: sealed-secrets
       targetRevision: main
