@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: infra-structure
+  # Use Argo CD 2.6+ Multiple Sources (Helm repository + Git resources)
+  sources:
+    - repoURL: https://charts.jetstack.io
+      chart: cert-manager
+      targetRevision: 1.19.1
+      helm:
+        values: |
+          crds:
+            enabled: true
+          replicaCount: 1
+          webhook:
+            replicaCount: 1
+          cainjector:
+            replicaCount: 1
+          prometheus:
+            enabled: false
+    - repoURL: https://github.com/lostady/k8s-infra
+      path: cert-manager
+      targetRevision: main
+      kustomize: {}  # Use kustomization.yaml (manage resources only)
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
