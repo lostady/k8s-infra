@@ -16,7 +16,7 @@ spec:
         values: |
           # Use default values
     - repoURL: https://github.com/lostady/k8s-infra
-      path: /minio/operator
+      path: minio/operator
       targetRevision: main
       kustomize: {}  # Use kustomization.yaml (manage resources only)
   destination:
