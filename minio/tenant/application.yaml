@@ -32,7 +32,7 @@ spec:
             certificate:
               requestAutoCert: false
     - repoURL: https://github.com/lostady/k8s-infra
-      path: git-ops/infra/minio/tenant
+      path: minio/tenant
       targetRevision: main
       kustomize: {}  # Use kustomization.yaml (manage resources only)
   destination:
