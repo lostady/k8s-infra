@@ -22,8 +22,8 @@ spec:
             requests:
               cpu: 10m
               memory: 32Mi
-    - repoURL: https://github.com/ong-ar/k8s-op
-      path: git-ops/infra/reloader
+    - repoURL: https://github.com/lostady/k8s-infra
+      path: reloader
       targetRevision: main
   destination:
     server: https://kubernetes.default.svc
